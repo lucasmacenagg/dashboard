@@ -1,6 +1,7 @@
+# server.R
 library(shiny)
 library(shinydashboard)
-source("data.R")  
+source("data.R")
 
 server <- function(input, output) {
   output$histogramPlot <- renderPlot({
@@ -19,6 +20,15 @@ server <- function(input, output) {
   output$desvio_ano <- renderText({
     paste("Desvio Padrão do Ano:", round(desvio_ano, 2))
   })
+  
+  output$x_slider <- renderUI({
+    sliderInput(
+      "x_slider", 
+      "Valor de x:",
+      min = min(ano),
+      max = max(ano),
+      value = mean(ano),
+      step = 1
+    )
+  })
 }
-
-server
