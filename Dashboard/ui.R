@@ -1,6 +1,7 @@
 # ui.R
 library(shiny)
 library(shinydashboard)
+library(ggplot2)
 source("server.R")
 
 ui <- dashboardPage(
@@ -36,7 +37,12 @@ ui <- dashboardPage(
           plotOutput("histogramPlot", height = 300)
         )
       ),
-      tabItem(tabName = "dispersao", "Testando a aba Dispersão")
+      tabItem(
+        tabName = "dispersao",
+        mainPanel(
+          plotOutput("linechartPlot", height = 300)
+        )
+        )
     )
   )
 )
