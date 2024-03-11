@@ -1,7 +1,7 @@
 library(shiny)
 library(shinydashboard)
-
- source("data.R")
+source("server.R")
+source("data.R")
 
 ui <- dashboardPage(
   skin = "black",
@@ -26,7 +26,11 @@ ui <- dashboardPage(
             max = max(histo$breaks),
             value = mean(histo$breaks),
             step = 1
-          )
+          ),
+          h3("Estatísticas do Ano"),
+          textOutput("media_ano"),
+          textOutput("mediana_ano"),
+          textOutput("desvio_ano")
         ),
         mainPanel(
           plotOutput("histogramPlot", height = 300)
@@ -36,12 +40,5 @@ ui <- dashboardPage(
     )
   )
 )
-
-server <- function(input, output) {
-  output$histogramPlot <- renderPlot({
-    hist(ano, main = "Histograma de Ano", xlab = "Ano",
-         xlim = c(input$x_slider, max(histo$breaks)))
-  })
-}
 
 shinyApp(ui, server)
