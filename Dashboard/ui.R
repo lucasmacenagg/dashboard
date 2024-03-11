@@ -1,7 +1,7 @@
+# ui.R
 library(shiny)
 library(shinydashboard)
 source("server.R")
-source("data.R")
 
 ui <- dashboardPage(
   skin = "black",
@@ -22,9 +22,9 @@ ui <- dashboardPage(
           sliderInput(
             "x_slider", 
             "Valor de x:",
-            min = min(histo$breaks),
-            max = max(histo$breaks),
-            value = mean(histo$breaks),
+            min = min(ano),
+            max = max(ano),
+            value = mean(ano),
             step = 1
           ),
           h3("Estatísticas do Ano"),
@@ -41,4 +41,4 @@ ui <- dashboardPage(
   )
 )
 
-shinyApp(ui, server)
+ui
