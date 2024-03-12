@@ -1,4 +1,3 @@
-# ui.R
 library(shiny)
 library(shinydashboard)
 library(ggplot2)
@@ -40,9 +39,14 @@ ui <- dashboardPage(
       tabItem(
         tabName = "dispersao",
         mainPanel(
-          plotOutput("linechartPlot", height = 300)
+          plotOutput("linechartPlot", height = 300),
+          sliderInput("x_slider2", "Valor de x:",
+                      min = min(ano),
+                      max = max(ano),
+                      value = mean(ano),
+                      step = 1)
         )
-        )
+      )
     )
   )
 )
