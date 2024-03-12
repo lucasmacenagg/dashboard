@@ -1,4 +1,3 @@
-# server.R
 library(shiny)
 library(shinydashboard)
 source("data.R")
@@ -6,8 +5,8 @@ source("data.R")
 server <- function(input, output) {
   output$linechartPlot <- renderPlot({
     ggplot(data_limpo, aes(x=ano, y=ranking)) + 
-      geom_line(linetype="dashed") + coord_cartesian(xlim = c(input$x_slider, max(ano))) + 
-       ggtitle("Gráfico de Linha") + xlab("Ano") + ylab("Nota") 
+      geom_line(linetype="dashed") + coord_cartesian(xlim = c(input$x_slider2, max(ano))) + 
+      ggtitle("Gráfico de Linha") + xlab("Ano") + ylab("Nota") 
   })
   
   output$histogramPlot <- renderPlot({
@@ -30,6 +29,16 @@ server <- function(input, output) {
   output$x_slider <- renderUI({
     sliderInput(
       "x_slider", 
+      "Valor de x:",
+      min = min(ano),
+      max = max(ano),
+      value = mean(ano),
+      step = 1
+    )
+  })
+  output$x_slider <- renderUI({
+    sliderInput(
+      "x_slider2", 
       "Valor de x:",
       min = min(ano),
       max = max(ano),
