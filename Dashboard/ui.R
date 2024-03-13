@@ -11,7 +11,8 @@ ui <- dashboardPage(
     sidebarMenu(
       menuItem("Programas por ano", tabName = "histograma", icon = icon("chart-bar")),
       menuItem("Notas por ano", tabName = "linha", icon = icon("chart-bar")),
-      menuItem("Gêneros por ano", tabName = "pizza", icon = icon("chart-bar"))
+      menuItem("Gêneros por ano", tabName = "pizza", icon = icon("chart-bar")),
+      menuItem("Distribuição de Notas", tabName = "box", icon = icon("chart-bar"))
     )
   ),
   dashboardBody(
@@ -63,6 +64,21 @@ ui <- dashboardPage(
         ),
         mainPanel(
           plotOutput("piechartPlot", height = 300)
+        )
+      ),
+      tabItem(
+        tabName = "box",
+        sidebarPanel(
+          sliderInput(
+            "x_slider4", 
+            "Valor de x:",
+            min = min(ano),
+            max = max(ano),
+            value = 2008,
+            step = 1)
+        ),
+        mainPanel(
+          plotOutput("boxPlot", height = 300),
         )
       )
     )

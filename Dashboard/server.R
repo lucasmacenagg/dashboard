@@ -18,10 +18,23 @@ server <- function(input, output) {
       labs(title = paste("Distribuição dos Gêneros das Obras Lançadas em", c(input$x_slider3)))
   }})
   
+  output$boxPlot <- renderPlot({
+    ggplot(data_limpo, aes(x = factor(ano), y = ranking)) +
+      scale_x_discrete(limits = c(factor(input$x_slider4:2021))) +
+      geom_boxplot() +
+      geom_jitter(color = "black", size = 0.5, alpha = 0.8) +
+      ggtitle("Distribuição das notas pelos anos") +
+      xlab("Ano") +
+      ylab("Nota")
+  })
+  
   output$linechartPlot <- renderPlot({
     ggplot(data_limpo, aes(x=ano, y=ranking)) + 
-      geom_line(linetype="dashed") + coord_cartesian(xlim = c(input$x_slider2, max(ano))) + 
-      ggtitle("Gráfico de Linha") + xlab("Ano") + ylab("Nota") 
+      geom_line(linetype="dashed") + 
+      coord_cartesian(xlim = c(input$x_slider2, max(ano))) + 
+      ggtitle("Variação das notas pelos anos") + 
+      xlab("Ano") + 
+      ylab("Nota") 
   })
   
   output$histogramPlot <- renderPlot({
@@ -54,6 +67,26 @@ server <- function(input, output) {
   output$x_slider <- renderUI({
     sliderInput(
       "x_slider2", 
+      "Valor de x:",
+      min = min(ano),
+      max = max(ano),
+      value = mean(ano),
+      step = 1
+    )
+  })
+  output$x_slider <- renderUI({
+    sliderInput(
+      "x_slider3", 
+      "Valor de x:",
+      min = min(ano),
+      max = max(ano),
+      value = mean(ano),
+      step = 1
+    )
+  })
+  output$x_slider <- renderUI({
+    sliderInput(
+      "x_slider4", 
       "Valor de x:",
       min = min(ano),
       max = max(ano),
