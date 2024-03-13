@@ -1,15 +1,17 @@
 library(shiny)
 library(shinydashboard)
 library(ggplot2)
+library(dplyr)
 source("server.R")
 
 ui <- dashboardPage(
   skin = "black",
-  dashboardHeader(title = "Dashboard de dorama "),
+  dashboardHeader(title = "Dashboard TV Coreana"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Histogramas", tabName = "histogramas", icon = icon("chart-bar")),
-      menuItem("Dispersão", tabName = "dispersao", icon = icon("chart-bar"))
+      menuItem("Programas por ano", tabName = "histograma", icon = icon("chart-bar")),
+      menuItem("Notas por ano", tabName = "linha", icon = icon("chart-bar")),
+      menuItem("Gêneros por ano", tabName = "pizza", icon = icon("chart-bar"))
     )
   ),
   dashboardBody(
@@ -17,7 +19,7 @@ ui <- dashboardPage(
     
     tabItems(
       tabItem(
-        tabName = "histogramas",
+        tabName = "histograma",
         sidebarPanel(
           sliderInput(
             "x_slider", 
@@ -37,7 +39,7 @@ ui <- dashboardPage(
         )
       ),
       tabItem(
-        tabName = "dispersao",
+        tabName = "linha",
         mainPanel(
           plotOutput("linechartPlot", height = 300),
           sliderInput("x_slider2", "Valor de x:",
@@ -45,6 +47,22 @@ ui <- dashboardPage(
                       max = max(ano),
                       value = mean(ano),
                       step = 1)
+        )
+      ),
+      tabItem(
+        tabName = "pizza",
+        sidebarPanel(
+          sliderInput(
+            "x_slider3", 
+            "Valor de x:",
+            min = 2005,
+            max = 2018,
+            value = mean(ano),
+            step = 1
+          ),
+        ),
+        mainPanel(
+          plotOutput("piechartPlot", height = 300)
         )
       )
     )

@@ -1,8 +1,19 @@
 library(shiny)
 library(shinydashboard)
-source("data.R")
+source("Data.R")
 
 server <- function(input, output) {
+  output$piechartPlot <- renderPlot({
+    dados_ano <- data.frame(ano = ano, genero = genero) %>%
+      filter(ano == c(input$x_slider3))
+    genero_count <- count(dados_ano, genero)
+    ggplot(genero_count, aes(x = "", y = n, fill = genero)) +
+      geom_bar(stat = "identity", width = 1) +
+      coord_polar("y") +
+      theme_void() +
+      labs(title = paste("Distribuição de Gêneros em", c(input$x_slider3)))
+  })
+  
   output$linechartPlot <- renderPlot({
     ggplot(data_limpo, aes(x=ano, y=ranking)) + 
       geom_line(linetype="dashed") + coord_cartesian(xlim = c(input$x_slider2, max(ano))) + 

@@ -12,3 +12,12 @@ desvio_ano = sd(ano)
 media_classificação = mean(ranking)
 mediana_classificação = median(ranking)
 desvio_classificação = sd(ranking)
+
+selecionar_primeiro_genero <- function(generos) {
+  generos <- strsplit(generos, ", ")[[1]]
+  primeiro_genero <- generos[1]
+  print(primeiro_genero)
+  return(primeiro_genero)
+}
+
+genero <- sapply(genero, selecionar_primeiro_genero)
