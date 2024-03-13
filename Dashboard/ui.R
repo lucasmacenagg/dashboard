@@ -55,9 +55,9 @@ ui <- dashboardPage(
           sliderInput(
             "x_slider3", 
             "Valor de x:",
-            min = 2005,
+            min = 2000,
             max = 2018,
-            value = mean(ano),
+            value = 2005,
             step = 1
           ),
         ),
