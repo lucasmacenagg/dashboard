@@ -4,6 +4,10 @@ source("Data.R")
 
 server <- function(input, output) {
   output$piechartPlot <- renderPlot({
+    if (is.null(input$x_slider3)) {
+      dados_ano <- data.frame(ano = 2005, genero = genero)
+    }
+    else{
     dados_ano <- data.frame(ano = ano, genero = genero) %>%
       filter(ano == c(input$x_slider3))
     genero_count <- count(dados_ano, genero)
@@ -11,8 +15,8 @@ server <- function(input, output) {
       geom_bar(stat = "identity", width = 1) +
       coord_polar("y") +
       theme_void() +
-      labs(title = paste("Distribuição de Gêneros em", c(input$x_slider3)))
-  })
+      labs(title = paste("Distribuição dos Gêneros das Obras Lançadas em", c(input$x_slider3)))
+  }})
   
   output$linechartPlot <- renderPlot({
     ggplot(data_limpo, aes(x=ano, y=ranking)) + 
